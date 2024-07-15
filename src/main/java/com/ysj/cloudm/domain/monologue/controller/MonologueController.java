@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -11,16 +12,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@RequestMapping("/monologue")
 public class MonologueController {
 
     private List<Monologue> monologues = new ArrayList<>();
 
-    @GetMapping("/monologue")
+    @GetMapping("")
     String createMonologue() {
         return "monologue/play";
     }
 
-    @GetMapping("/monologue/play")
+    @GetMapping("/play")
     @ResponseBody
     RsData createMonologue(@RequestParam("body") String body) {
         Monologue monologue = new Monologue(monologues.size()+1L, 0L, body);
@@ -34,7 +36,7 @@ public class MonologueController {
         return rs;
     }
 
-    @GetMapping("/monologue/mine")
+    @GetMapping("/mine")
     @ResponseBody
     List<Monologue> showMyMonologues() {
         return monologues;

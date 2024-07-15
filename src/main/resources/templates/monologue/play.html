@@ -5,6 +5,34 @@
     <title>Play</title>
 </head>
 <body>
-    Let's play monologue!
+    <div style="display: flex; flex-direction: column; gap:20px; max-width:500px;">
+        <p>이것은 임의의 질문</p>
+
+        <input type="text" id="input-body" placeholder="내용">
+
+        <!-- javascript:; -> 아무것도 하지 않는다 -->
+        <a href="javascript:;" onclick="submitWriteForm();">
+            PLAY
+        </a>
+    </div>
+
+    <script>
+        function submitWriteForm() {
+            const inputBody = document.getElementById('input-body');
+
+            inputBody.value = inputBody.value.trim();
+
+            const body = inputBody.value;
+
+            if (body.length == 0) {
+                alert('내용을 입력해주세요.');
+                inputBody.focus();
+
+                return;
+            }
+
+            location.href = `/monologue/play?body=${body}`;
+        }
+    </script>
 </body>
 </html>

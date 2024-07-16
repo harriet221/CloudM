@@ -3,10 +3,7 @@ package com.ysj.cloudm.domain.monologue.controller;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +14,12 @@ public class MonologueController {
 
     private List<Monologue> monologues = new ArrayList<>();
 
-    @GetMapping("")
+    @GetMapping("/play")
     String createMonologue() {
         return "monologue/play";
     }
 
-    @GetMapping("/play")
+    @PostMapping("/play")
     @ResponseBody
     RsData createMonologue(@RequestParam("body") String body) {
         Monologue monologue = new Monologue(monologues.size()+1L, 0L, body);

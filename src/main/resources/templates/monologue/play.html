@@ -5,33 +5,32 @@
     <title>Play</title>
 </head>
 <body>
-    <div style="display: flex; flex-direction: column; gap:20px; max-width:500px;">
+    <form action="/monologue/play" onsubmit="submitWriteForm(this); return false;"
+          style="display: flex; flex-direction: column; gap:20px; max-width:500px;">
         <p>이것은 임의의 질문</p>
 
-        <input type="text" id="input-body" placeholder="내용">
+        <input type="text" name="body" id="input-body" placeholder="Write down your answer">
 
-        <!-- javascript:; -> 아무것도 하지 않는다 -->
-        <a href="javascript:;" onclick="submitWriteForm();">
-            PLAY
-        </a>
-    </div>
+        <button type="submit">
+            Save Monologue
+        </button>
+    </form>
 
     <script>
-        function submitWriteForm() {
-            const inputBody = document.getElementById('input-body');
+        function submitWriteForm(form) {
+            const inputBody = form.body;
 
             inputBody.value = inputBody.value.trim();
 
             const body = inputBody.value;
 
-            if (body.length == 0) {
-                alert('내용을 입력해주세요.');
+            if (body.length === 0) {
+                alert('You did not answer yet');
                 inputBody.focus();
-
                 return;
             }
 
-            location.href = `/monologue/play?body=${body}`;
+            form.submit();
         }
     </script>
 </body>

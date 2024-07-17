@@ -1,18 +1,17 @@
 package com.ysj.cloudm.domain.monologue.controller;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import com.ysj.cloudm.domain.monologue.entity.Monologue;
+import com.ysj.cloudm.domain.monologue.service.MonologueService;
+import com.ysj.cloudm.global.rs.RsData;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("/monologue")
 public class MonologueController {
-
-    private List<Monologue> monologues = new ArrayList<>();
+    private final MonologueService monologueService = new MonologueService();
 
     @GetMapping("/play")
     String createMonologue() {
@@ -22,8 +21,7 @@ public class MonologueController {
     @PostMapping("/play")
     @ResponseBody
     RsData createMonologue(@RequestParam("body") String body) {
-        Monologue monologue = new Monologue(monologues.size()+1L, 0L, body);
-        monologues.add(monologue);
+        Monologue monologue = monologueService.create(0L, body);
 
         RsData<Monologue> rs = new RsData<>(
                 "S-200",
@@ -36,29 +34,7 @@ public class MonologueController {
     @GetMapping("/mine")
     @ResponseBody
     List<Monologue> showMyMonologues() {
-        return monologues;
+        return monologueService.findMyMonologues();
     }
 }
 
-@AllArgsConstructor
-@Getter
-class RsData<T> {
-    private String resultCode;
-    private String msg;
-    private T data;
-}
-
-@AllArgsConstructor
-@Getter
-class Question {
-    private Long id;
-    private String content;
-}
-
-@AllArgsConstructor
-@Getter
-class Monologue {
-    private Long id;
-    private Long questionId;
-    private String body;
-}

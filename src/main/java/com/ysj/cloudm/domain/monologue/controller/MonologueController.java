@@ -3,7 +3,6 @@ package com.ysj.cloudm.domain.monologue.controller;
 import com.ysj.cloudm.domain.monologue.entity.Monologue;
 import com.ysj.cloudm.domain.monologue.service.MonologueService;
 import com.ysj.cloudm.global.rs.RsData;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,8 +11,11 @@ import java.util.List;
 @Controller
 @RequestMapping("/monologue")
 public class MonologueController {
-    @Autowired
-    private MonologueService monologueService;
+    private final MonologueService monologueService;
+
+    public MonologueController(MonologueService monologueService) {
+        this.monologueService = monologueService;
+    }
 
     @GetMapping("/play")
     String createMonologue() {

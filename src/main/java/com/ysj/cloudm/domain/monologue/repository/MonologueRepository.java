@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository // @Component 역할
+@Repository
 public class MonologueRepository {
     private final List<Monologue> monologues = new ArrayList<>();
 

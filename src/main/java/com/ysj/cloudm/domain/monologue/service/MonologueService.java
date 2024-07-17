@@ -2,13 +2,15 @@ package com.ysj.cloudm.domain.monologue.service;
 
 import com.ysj.cloudm.domain.monologue.entity.Monologue;
 import com.ysj.cloudm.domain.monologue.repository.MonologueRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Service  // @Component 역할
 public class MonologueService {
-    private final MonologueRepository monologueRepository = new MonologueRepository();
+    @Autowired
+    private MonologueRepository monologueRepository;
 
     public Monologue create(Long questionId, String body) {
         Monologue monologue = new Monologue(questionId, body);

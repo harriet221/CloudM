@@ -1,14 +1,15 @@
 package com.ysj.cloudm.domain.monologue.repository;
 
 import com.ysj.cloudm.domain.monologue.entity.Monologue;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
+@RequiredArgsConstructor
 public class MonologueRepository {
-    private final List<Monologue> monologues = new ArrayList<>();
+    private final List<Monologue> monologues;
 
     public Monologue save(Monologue monologue) {
         if(monologue.getId() == null) {

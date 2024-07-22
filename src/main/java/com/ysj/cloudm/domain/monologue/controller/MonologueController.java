@@ -3,14 +3,17 @@ package com.ysj.cloudm.domain.monologue.controller;
 import com.ysj.cloudm.domain.monologue.entity.Monologue;
 import com.ysj.cloudm.domain.monologue.service.MonologueService;
 import com.ysj.cloudm.global.rs.RsData;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@Validated
 @RequestMapping("/monologue")
 public class MonologueController {
     private final MonologueService monologueService;
@@ -22,13 +25,7 @@ public class MonologueController {
 
     @PostMapping("/play")
     @ResponseBody
-    RsData createMonologue(String body) {
-
-        if(body == null || body.trim().length() == 0)
-            // throw new IllegalArgumentException("본문 없음");
-            return new RsData<>(
-                    "F-1",
-                    "Empty body");
+    RsData createMonologue(@NotBlank(message = "작성 필수") String body) {
 
         Monologue monologue = monologueService.create(0L, body);
 

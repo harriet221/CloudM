@@ -27,14 +27,17 @@ dependencies {
     // devtools
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
-    // 롬복
+    // lombok
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
     // 스프링 웹
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
-    // 타임리프(뷰)
+    // validation
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // thymeleaf(뷰)
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
     // 테스트

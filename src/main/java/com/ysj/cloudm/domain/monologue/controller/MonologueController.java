@@ -22,7 +22,14 @@ public class MonologueController {
 
     @PostMapping("/play")
     @ResponseBody
-    RsData createMonologue(@RequestParam("body") String body) {
+    RsData createMonologue(String body) {
+
+        if(body == null || body.trim().length() == 0)
+            // throw new IllegalArgumentException("본문 없음");
+            return new RsData<>(
+                    "F-1",
+                    "Empty body");
+
         Monologue monologue = monologueService.create(0L, body);
 
         RsData<Monologue> rs = new RsData<>(

@@ -25,7 +25,9 @@ public class MonologueController {
 
     @PostMapping("/play")
     @ResponseBody
-    RsData createMonologue(@NotBlank(message = "작성 필수") String body) {
+    RsData createMonologue(
+            @RequestParam("body")
+            @NotBlank(message = "작성 필수") String body) {
 
         Monologue monologue = monologueService.create(0L, body);
 

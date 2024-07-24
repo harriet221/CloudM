@@ -6,6 +6,7 @@ import com.ysj.cloudm.global.rs.RsData;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,9 +41,10 @@ public class MonologueController {
     }
 
     @GetMapping("/mine")
-    @ResponseBody
-    List<Monologue> showMyMonologues() {
-        return monologueService.findMyMonologues();
+    String showMyMonologues(Model model) {
+        List<Monologue> monologues = monologueService.findMyMonologues();
+        model.addAttribute("myMonologues", monologues);
+        return "monologue/mine";
     }
 }
 

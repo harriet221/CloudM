@@ -2,7 +2,6 @@ package com.ysj.cloudm.domain.monologue.controller;
 
 import com.ysj.cloudm.domain.monologue.entity.Monologue;
 import com.ysj.cloudm.domain.monologue.service.MonologueService;
-import com.ysj.cloudm.global.rs.RsData;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -25,19 +24,14 @@ public class MonologueController {
     }
 
     @PostMapping("/play")
-    @ResponseBody
-    RsData createMonologue(
+    String createMonologue(
             @RequestParam("body")
             @NotBlank(message = "작성 필수") String body) {
 
         Monologue monologue = monologueService.create(0L, body);
 
-        RsData<Monologue> rs = new RsData<>(
-                "S-200",
-                "no.%d monologue's done.".formatted(monologue.getId()),
-                monologue
-        );
-        return rs;
+        String msg = "no. %d Monologue created".formatted(monologue.getId());
+        return "redirect:/monologue/mine?msg="+msg;
     }
 
     @GetMapping("/mine")

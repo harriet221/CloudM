@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -39,6 +40,17 @@ public class MonologueController {
         List<Monologue> monologues = monologueService.findMyMonologues();
         model.addAttribute("myMonologues", monologues);
         return "monologue/mine";
+    }
+
+    @GetMapping("/{id}")
+    String showMonologue(Model model, @PathVariable("id") Long id) {
+        Optional<Monologue> monologue = monologueService.findMonologue(id);
+        if(monologue.isEmpty()) {
+            String msg = "no. %d Monologue is not exist".formatted(id);
+            return "redirect:/monologue/mine?msg="+msg;
+        }
+        model.addAttribute("monologue", monologue);
+        return "monologue/detail";
     }
 }
 

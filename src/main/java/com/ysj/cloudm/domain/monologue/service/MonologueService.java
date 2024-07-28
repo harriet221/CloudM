@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,5 +21,9 @@ public class MonologueService {
 
     public List<Monologue> findMyMonologues() {
         return monologueRepository.findMyMonologues();
+    }
+
+    public Optional<Monologue> findMonologue(Long id) {
+        return monologueRepository.findMonologue(id);
     }
 }

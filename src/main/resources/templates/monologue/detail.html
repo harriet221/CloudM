@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Monologue Detail</title>
+</head>
+<body>
+<div>
+    [[${monologue}]]
+    <h3>ID : <span th:text="${monologue.id}"></span></h3>
+    <h3>Content</h3>
+    <div th:text="${monologue.body}"></div>
+</div>
+</body>
+</html>

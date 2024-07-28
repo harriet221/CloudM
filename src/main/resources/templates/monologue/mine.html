@@ -6,6 +6,11 @@
 </head>
 <body>
 <h2>My Monologues</h2>
+
+<div style="color:mediumvioletred;" th:if="${param.msg} != null">
+    메세지 : [[${param.msg}]]
+</div>
+
 <ul th:if="${myMonologues.size() > 0}">
     <li th:each="monologue : ${myMonologues}" th:text="${monologue.body}"></li>
 </ul>

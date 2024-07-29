@@ -10,7 +10,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -44,8 +43,8 @@ public class MonologueController {
 
     @GetMapping("/{id}")
     String showMonologue(Model model, @PathVariable("id") Long id) {
-        Optional<Monologue> monologue = monologueService.findMonologue(id);
-        if(monologue.isEmpty()) {
+        Monologue monologue = monologueService.findById(id);
+        if(monologue == null) {
             String msg = "no. %d Monologue is not exist".formatted(id);
             return "redirect:/monologue/mine?msg="+msg;
         }

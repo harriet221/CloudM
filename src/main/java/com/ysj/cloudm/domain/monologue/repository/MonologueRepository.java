@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -31,11 +30,11 @@ public class MonologueRepository {
         return monologues;
     }
 
-    public Optional<Monologue> findMonologue(Long id) {
+    public Monologue findById(Long id) {
         for(Monologue monologue : monologues) {
             if(Objects.equals(monologue.getId(), id))
-                return Optional.of(monologue);
+                return monologue;
         }
-        return Optional.empty();
+        return null;
     }
 }

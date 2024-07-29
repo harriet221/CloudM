@@ -6,10 +6,9 @@
 </head>
 <body>
 <div>
-    [[${monologue}]]
-    <h3>ID : <span th:text="${monologue.id}"></span></h3>
+    <h3>ID : <span th:text="|No. ${monologue.id}|"></span></h3>
     <h3>Content</h3>
-    <div th:text="${monologue.body}"></div>
+    <div th:text="|: ${monologue.body}|"></div>
 </div>
 </body>
 </html>

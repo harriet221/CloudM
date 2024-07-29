@@ -12,7 +12,9 @@
 </div>
 
 <ul th:if="${myMonologues.size() > 0}">
-    <li th:each="monologue : ${myMonologues}" th:text="${monologue.body}"></li>
+    <li th:each="monologue : ${myMonologues}">
+        <a th:href="|/monologue/${monologue.id}|" th:text="${monologue.body}"></a>
+    </li>
 </ul>
 </body>
 </html>

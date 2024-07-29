@@ -51,5 +51,18 @@ public class MonologueController {
         model.addAttribute("monologue", monologue);
         return "monologue/detail";
     }
+
+    @GetMapping("/delete/{id}")
+    String deleteMonologue(@PathVariable("id") Long id) {
+        Monologue monologue = monologueService.findById(id);
+        if(monologue == null) {
+            String msg = "no. %d Monologue is not exist".formatted(id);
+            return "redirect:/monologue/mine?msg="+msg;
+        }
+        monologueService.delete(id);
+
+        String msg = "no. %d Monologue deleted".formatted(monologue.getId());
+        return "redirect:/monologue/mine?msg="+msg;
+    }
 }
 

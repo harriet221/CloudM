@@ -25,4 +25,8 @@ public class MonologueService {
     public Monologue findById(Long id) {
         return monologueRepository.findById(id);
     }
+
+    public void delete(Long id) {
+        monologueRepository.delete(id);
+    }
 }

@@ -37,4 +37,8 @@ public class MonologueRepository {
         }
         return null;
     }
+
+    public void delete(Long id) {
+        monologues.removeIf(monologue -> Objects.equals(monologue.getId(), id));
+    }
 }

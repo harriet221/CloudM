@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Play</title>
-</head>
-<body>
+<html layout:decorate="~{global/layout}" lang="en">
+
+<div layout:fragment="content">
     <form method="post" onsubmit="submitWriteForm(this); return false;"
           style="display: flex; flex-direction: column; gap:20px; max-width:500px;">
         <p>이것은 임의의 질문</p>
@@ -33,5 +29,5 @@
             form.submit();
         }
     </script>
-</body>
+</div>
 </html>

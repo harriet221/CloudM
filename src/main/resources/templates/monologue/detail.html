@@ -1,16 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Monologue Detail</title>
-</head>
-<body>
-<div>
-<!--    [[${monologue}]]-->
+<html layout:decorate="~{global/layout}" lang="en">
+
+<div layout:fragment="content">
     <h3>ID : <span th:text="|No. ${monologue.id}|"></span></h3>
     <h3>Content</h3>
     <div th:text="|: ${monologue.body}|"></div>
     <div><a onclick="return confirm('Are you sure?');" th:href="|/monologue/delete/${monologue.id}|" th:text="DELETE"></a></div>
 </div>
-</body>
 </html>

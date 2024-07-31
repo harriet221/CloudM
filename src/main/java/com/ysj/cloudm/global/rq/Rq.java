@@ -15,4 +15,9 @@ public class Rq {
         this.req = req;
         this.resp = resp;
     }
+
+    public String redirect(String path, String msg) {
+        // msg = URLEncoder.encode(msg, StandardCharsets.UTF_8);
+        return "redirect:"+path+"?msg="+msg;
+    }
 }

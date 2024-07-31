@@ -2,6 +2,7 @@ package com.ysj.cloudm.domain.monologue.controller;
 
 import com.ysj.cloudm.domain.monologue.entity.Monologue;
 import com.ysj.cloudm.domain.monologue.service.MonologueService;
+import com.ysj.cloudm.global.rq.Rq;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import java.util.List;
 @RequestMapping("/monologue")
 public class MonologueController {
     private final MonologueService monologueService;
+    private final Rq rq;
 
     @GetMapping("/play")
     String createMonologue() {
@@ -30,8 +32,7 @@ public class MonologueController {
 
         Monologue monologue = monologueService.create(0L, body);
 
-        String msg = "no. %d Monologue created".formatted(monologue.getId());
-        return "redirect:/monologue/mine?msg="+msg;
+        return rq.redirect("/monologue/mine", "no. %d Monologue is created".formatted(monologue.getId()));
     }
 
     @GetMapping("/mine")
@@ -45,8 +46,7 @@ public class MonologueController {
     String showMonologue(Model model, @PathVariable("id") Long id) {
         Monologue monologue = monologueService.findById(id);
         if(monologue == null) {
-            String msg = "no. %d Monologue is not exist".formatted(id);
-            return "redirect:/monologue/mine?msg="+msg;
+            return rq.redirect("/monologue/mine", "no. %d Monologue does not exist".formatted(id));
         }
         model.addAttribute("monologue", monologue);
         return "monologue/detail";
@@ -56,13 +56,11 @@ public class MonologueController {
     String deleteMonologue(@PathVariable("id") Long id) {
         Monologue monologue = monologueService.findById(id);
         if(monologue == null) {
-            String msg = "no. %d Monologue is not exist".formatted(id);
-            return "redirect:/monologue/mine?msg="+msg;
+            return rq.redirect("/monologue/mine", "no. %d Monologue does not exist".formatted(id));
         }
         monologueService.delete(id);
 
-        String msg = "no. %d Monologue deleted".formatted(monologue.getId());
-        return "redirect:/monologue/mine?msg="+msg;
+        return rq.redirect("/monologue/mine", "no. %d Monologue is deleted".formatted(id));
     }
 }
 

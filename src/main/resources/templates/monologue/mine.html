@@ -1,16 +1,18 @@
 <html layout:decorate="~{global/layout}" lang="en">
 
 <div layout:fragment="content">
-    <h2>My Monologues</h2>
+    <h2 class="flex justify-center py-5">My Monologues</h2>
 
-    <div style="color:mediumvioletred;" th:if="${param.msg} != null">
-        메세지 : [[${param.msg}]]
+    <div class="text-red-400 flex justify-center" th:if="${param.msg} != null">
+        ※ warning : [[${param.msg}]]
     </div>
 
-    <ul th:if="${myMonologues.size() > 0}">
-        <li th:each="monologue : ${myMonologues}">
-            <a th:href="|/monologue/${monologue.id}|" th:text="${monologue.body}"></a>
-        </li>
-    </ul>
+    <div class="flex justify-center py-5">
+        <ul th:if="${myMonologues.size() > 0}">
+            <li th:each="monologue : ${myMonologues}">
+                <a th:href="|/monologue/${monologue.id}|" th:text="${monologue.body}"></a>
+            </li>
+        </ul>
+    </div>
 </div>
 </html>

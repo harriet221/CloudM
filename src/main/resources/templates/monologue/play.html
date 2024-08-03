@@ -1,13 +1,15 @@
 <html layout:decorate="~{global/layout}" lang="en">
 
-<div layout:fragment="content">
+<div layout:fragment="content" class="flex justify-center">
     <form method="post" onsubmit="submitWriteForm(this); return false;"
-          style="display: flex; flex-direction: column; gap:20px; max-width:500px;">
+          class="flex flex-col gap-5 justify-center">
         <p>이것은 임의의 질문</p>
 
-        <input type="text" name="body" id="input-body" placeholder="Write down your answer">
+        <textarea type="text" name="body" id="input-body" placeholder="Write down your answer"
+                  class="textarea textarea-bordered textarea-warning textarea-lg w-full"></textarea>
 
-        <button type="submit">
+        <button type="submit" class="btn btn-wide btn-outline btn-warning">
+
             Save This Monologue
         </button>
     </form>

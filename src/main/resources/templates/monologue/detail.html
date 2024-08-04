@@ -1,10 +1,42 @@
 <html layout:decorate="~{global/layout}" lang="en">
 
 <div layout:fragment="content">
-    <h3>ID : <span th:text="|No. ${monologue.id}|"></span></h3>
-    <h3>Content</h3>
-    <div th:text="|: ${monologue.body}|"></div>
+    <h3 class="flex justify-center">ID : <span th:text="|No. ${monologue.id}|"></span></h3>
+    <h3 class="flex justify-center">Content</h3>
+    <div class="flex justify-center" th:text="|: ${monologue.body}|"></div>
     <br>
-    <div><a onclick="return confirm('Are you sure?');" th:href="|/monologue/delete/${monologue.id}|" th:text="DELETE"></a></div>
+    <div class="flex justify-center" >
+        <button class="btn btn-outline btn-warning" onclick="my_modal_3.showModal()">DELETE</button>
+    </div>
+
+    <dialog id="my_modal_3" class="modal">
+        <div class="modal-box">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <h3 class="flex">
+                <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-6 w-6 shrink-0 stroke-current"
+                        fill="none"
+                        viewBox="0 0 24 24">
+                    <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                <span class="px-2">Are you sure?</span>
+            </h3>
+            <p class="flex justify-center py-4">There's no backup for this.</p>
+            <div class="modal-action">
+                <a th:href="|/monologue/delete/${monologue.id}|" class="btn btn-outline btn-warning">Yes, delete it please.</a>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
 </div>
 </html>

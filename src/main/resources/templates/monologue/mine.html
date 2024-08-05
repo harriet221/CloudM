@@ -5,9 +5,16 @@
 
     <div th:if="${param.msg} != null">
         <script th:inline="javascript">
-            window.onload = function() {
-                warning_modal.showModal();
+            /*<![CDATA[*/
+            const msg = /*[[${param.msg[0]}]]*/ '';
+            if (msg.startsWith("200")) {
+                toastNotice(msg);
+            } else {
+                window.onload = function() {
+                    warning_modal.showModal();
+                }
             }
+            /*]]>*/
         </script>
     </div>
 

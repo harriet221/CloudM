@@ -3,12 +3,12 @@ toastr.options = {
     debug: false,
     newestOnTop: true,
     progressBar: true,
-    positionClass: "toast-top-right",
+    positionClass: "toast-bottom-right",
     preventDuplicates: false,
     onclick: null,
     showDuration: "300",
     hideDuration: "1000",
-    timeOut: "5000",
+    timeOut: "3000",
     extendedTimeOut: "1000",
     showEasing: "swing",
     hideEasing: "linear",
@@ -16,10 +16,11 @@ toastr.options = {
     hideMethod: "fadeOut"
 };
 
+
 function toastWarning(msg) {
-    toastr["warning"](msg, "경고");
+    toastr["warning"](msg, "WARNING");
 }
 
 function toastNotice(msg) {
-    toastr["success"](msg, "성공");
+    toastr["success"](msg, "SUCCESS");
 }

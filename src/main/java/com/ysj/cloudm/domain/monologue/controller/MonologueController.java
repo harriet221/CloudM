@@ -32,7 +32,7 @@ public class MonologueController {
 
         Monologue monologue = monologueService.create(0L, body);
 
-        return rq.redirect("/monologue/mine", "no. %d Monologue is created".formatted(monologue.getId()));
+        return rq.redirect("/monologue/mine", "200 - no. %d Monologue is created".formatted(monologue.getId()));
     }
 
     @GetMapping("/mine")
@@ -60,7 +60,7 @@ public class MonologueController {
         }
         monologueService.delete(id);
 
-        return rq.redirect("/monologue/mine", "no. %d Monologue is deleted".formatted(id));
+        return rq.redirect("/monologue/mine", "200 - no. %d Monologue is deleted".formatted(id));
     }
 }
 

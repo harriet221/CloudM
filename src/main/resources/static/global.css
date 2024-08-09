@@ -14,12 +14,10 @@
 
 html > body {
     font-family: 'MonoplexKRNerd-BoldItalic', system-ui;
-    font-size: large;
 }
 
-html > body > h1 {
+h1 {
     font-family: 'Cafe24Meongi-W-v1.0', system-ui;
-    font-size: 90px;
 }
 
 a {

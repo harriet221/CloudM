@@ -1,0 +1,100 @@
+<html layout:decorate="~{global/layout}" lang="en">
+
+<div layout:fragment="content" class="flex justify-center">
+    <form method="post" onsubmit="submitJoinForm(this); return false;"
+          class="flex flex-col gap-5 justify-center">
+        <input type="text" name="username" id="input-username" placeholder="username">
+        <input type="password" name="password" id="input-password" placeholder="password">
+        <input type="password" name="passwordConfirm" id="confirm-password" placeholder="password to confirm">
+
+        <button type="submit" class="btn btn-wide btn-outline btn-warning">
+            Join into member
+        </button>
+    </form>
+
+    <dialog id="warning_modal" class="modal">
+        <div class="modal-box">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <h3 class="flex text-lg font-bold">
+                <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-6 w-6 shrink-0 stroke-current"
+                        fill="none"
+                        viewBox="0 0 24 24">
+                    <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                <span class="px-2">Warning</span>
+            </h3>
+            <p class="flex justify-center py-4">You have to make them longer than 4</p>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
+    <dialog id="warning_modal2" class="modal">
+        <div class="modal-box">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <h3 class="flex text-lg font-bold">
+                <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-6 w-6 shrink-0 stroke-current"
+                        fill="none"
+                        viewBox="0 0 24 24">
+                    <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                <span class="px-2">Warning</span>
+            </h3>
+            <p class="flex justify-center py-4">Check the password. It's not same.</p>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
+    <script>
+        function submitJoinForm(form) {
+            const inputUsername = form.username;
+            const inputPassword = form.password;
+            const inputPasswordConfirm = form.passwordConfirm;
+
+            inputUsername.value = inputUsername.value.trim();
+            const username = inputUsername.value;
+            if (username.length < 4) {
+                warning_modal.showModal();
+                inputUsername.focus();
+                return;
+            }
+
+            inputPassword.value = inputPassword.value.trim();
+            inputPasswordConfirm.value = inputPasswordConfirm.value.trim();
+            const password = inputPassword.value;
+            const passwordConfirm = inputPasswordConfirm.value;
+            if (password.length < 4) {
+                warning_modal.showModal();
+                inputPassword.focus();
+                return;
+            }
+            if (password !== passwordConfirm) {
+                warning_modal2.showModal();
+                inputPassword.focus();
+                return;
+            }
+
+            form.submit();
+        }
+    </script>
+</div>
+</html>

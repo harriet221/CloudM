@@ -29,4 +29,8 @@ public class MemberService {
     public void delete(Long id) {
         memberRepository.delete(id);
     }
+
+    public Member findByUsername(String username) {
+        return memberRepository.findByUsername(username);
+    }
 }

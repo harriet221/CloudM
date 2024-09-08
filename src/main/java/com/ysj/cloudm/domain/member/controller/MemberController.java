@@ -3,6 +3,8 @@ package com.ysj.cloudm.domain.member.controller;
 import com.ysj.cloudm.domain.member.entity.Member;
 import com.ysj.cloudm.domain.member.service.MemberService;
 import com.ysj.cloudm.global.rq.Rq;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -34,18 +36,18 @@ public class MemberController {
         @NotBlank
         private String password;
         @NotBlank
-        private String confirmPassword;
+        private String passwordConfirm;
     }
 
     @PostMapping("/join")
     String joinMember(@Valid JoinForm joinForm) {
 
-        if(!joinForm.password.equals(joinForm.confirmPassword))
+        if(!joinForm.password.equals(joinForm.passwordConfirm))
             return rq.redirect("/member/join", "Password doesn't match!");
 
         Member member = memberService.create(joinForm.username, joinForm.password);
 
-        return rq.redirect("/member/login", "Welcome! Have a good time, %s!".formatted(member.getUsername()));
+        return rq.redirect("/member/login", "Welcome! Login and have a good time!");
     }
 
     @GetMapping("/login")
@@ -53,6 +55,31 @@ public class MemberController {
         return "member/login";
     }
 
+    @Data
+    public static class LoginForm {
+        @NotBlank
+        private String username;
+        @NotBlank
+        private String password;
+    }
+
+    @PostMapping("/login")
+    String loginMember(@Valid LoginForm loginForm, HttpServletResponse response) {
+
+        Member member = memberService.findByUsername(loginForm.username);
+
+        if(member == null)
+            return rq.redirect("/member/login", "Join us first!");
+
+        if(!member.getPassword().equals(loginForm.password))
+            return rq.redirect("/member/login", "Wrong password!");
+
+        Cookie cookie = new Cookie("loginMemberId", "2");
+        cookie.setPath("/");
+        response.addCookie(cookie);
+
+        return rq.redirect("/", "Welcome, %s!".formatted(member.getUsername()));
+    }
 
     @GetMapping("/drop/{id}")
     String dropMember(@PathVariable("id") Long id) {

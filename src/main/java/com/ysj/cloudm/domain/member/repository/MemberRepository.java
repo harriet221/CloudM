@@ -36,4 +36,12 @@ public class MemberRepository {
     public void delete(Long id) {
         memberList.removeIf(member -> Objects.equals(member.getId(), id));
     }
+
+    public Member findByUsername(String username) {
+        for(Member member : memberList) {
+            if(Objects.equals(member.getUsername(), username))
+                return member;
+        }
+        return null;
+    }
 }

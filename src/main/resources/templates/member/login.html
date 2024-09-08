@@ -2,19 +2,18 @@
 
 <div layout:fragment="content" class="flex justify-center">
     <div class="flex flex-col gap-5 justify-center">
-        <form method="post" onsubmit="submitJoinForm(this); return false;"
+        <form method="post" onsubmit="submitLoginForm(this); return false;"
               class="flex flex-col gap-5 justify-center">
             <input type="text" name="username" id="input-username" placeholder="username">
             <input type="password" name="password" id="input-password" placeholder="password">
-            <input type="password" name="passwordConfirm" id="confirm-password" placeholder="password to confirm">
 
             <button type="submit" class="btn btn-wide btn-outline btn-warning">
-                Join into member
+                LOGIN
             </button>
         </form>
-        <a href="/member/login">
+        <a href="/member/join">
             <button type="button" class="btn btn-wide btn-outline btn-warning">
-                Joined already? LOGIN
+                Didn't join yet? SIGNUP
             </button>
         </a>
     </div>
@@ -38,14 +37,14 @@
                 </svg>
                 <span class="px-2">Warning</span>
             </h3>
-            <p class="flex justify-center py-4">You have to make them longer than 4</p>
+            <p class="flex justify-center py-4">You can't blank them!</p>
         </div>
         <form method="dialog" class="modal-backdrop">
             <button>close</button>
         </form>
     </dialog>
 
-    <dialog id="warning_modal_password_confirm" class="modal">
+    <dialog id="warning_modal_confirm" class="modal">
         <div class="modal-box">
             <form method="dialog">
                 <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
@@ -64,7 +63,7 @@
                 </svg>
                 <span class="px-2">Warning</span>
             </h3>
-            <p class="flex justify-center py-4">Check the password. It's not same.</p>
+            <p class="flex justify-center py-4">Please check your Id and Password!</p>
         </div>
         <form method="dialog" class="modal-backdrop">
             <button>close</button>
@@ -72,30 +71,22 @@
     </dialog>
 
     <script>
-        function submitJoinForm(form) {
+        function submitLoginForm(form) {
             const inputUsername = form.username;
             const inputPassword = form.password;
-            const inputPasswordConfirm = form.passwordConfirm;
 
             inputUsername.value = inputUsername.value.trim();
             const username = inputUsername.value;
-            if (username.length < 4) {
+            if (username.length === 0) {
                 warning_modal_length_check.showModal();
                 inputUsername.focus();
                 return;
             }
 
             inputPassword.value = inputPassword.value.trim();
-            inputPasswordConfirm.value = inputPasswordConfirm.value.trim();
             const password = inputPassword.value;
-            const passwordConfirm = inputPasswordConfirm.value;
-            if (password.length < 4) {
+            if (password.length === 0) {
                 warning_modal_length_check.showModal();
-                inputPassword.focus();
-                return;
-            }
-            if (password !== passwordConfirm) {
-                warning_modal_password_confirm.showModal();
                 inputPassword.focus();
                 return;
             }

@@ -74,7 +74,7 @@ public class MemberController {
         if(!member.getPassword().equals(loginForm.password))
             return rq.redirect("/member/login", "Wrong password!");
 
-        Cookie cookie = new Cookie("loginMemberId", "2");
+        Cookie cookie = new Cookie("loginMemberId", String.valueOf(member.getId()));
         cookie.setPath("/");
         response.addCookie(cookie);
 

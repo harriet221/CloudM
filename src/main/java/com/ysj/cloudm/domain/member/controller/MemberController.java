@@ -3,8 +3,8 @@ package com.ysj.cloudm.domain.member.controller;
 import com.ysj.cloudm.domain.member.entity.Member;
 import com.ysj.cloudm.domain.member.service.MemberService;
 import com.ysj.cloudm.global.rq.Rq;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -64,7 +64,7 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    String loginMember(@Valid LoginForm loginForm, HttpServletResponse response) {
+    String loginMember(@Valid LoginForm loginForm, HttpServletRequest request) {
 
         Member member = memberService.findByUsername(loginForm.username);
 
@@ -74,11 +74,16 @@ public class MemberController {
         if(!member.getPassword().equals(loginForm.password))
             return rq.redirect("/member/login", "Wrong password!");
 
-        Cookie cookie = new Cookie("loginMemberId", String.valueOf(member.getId()));
-        cookie.setPath("/");
-        response.addCookie(cookie);
+        HttpSession session = request.getSession();
+        session.setAttribute("loginMemberId", member.getId());
 
         return rq.redirect("/", "Welcome, %s!".formatted(member.getUsername()));
+    }
+
+    @GetMapping("/logout")
+    String logoutMember() {
+        rq.logout();
+        return "redirect:/";
     }
 
     @GetMapping("/drop/{id}")

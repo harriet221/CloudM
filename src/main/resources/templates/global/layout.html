@@ -29,9 +29,14 @@
             </a>
         </a>
     </div>
-    <div class="flex-none gap-2">
+    <div th:if="${@rq.login} == null" class="flex-none gap-2">
         <div tabindex="0" role="button">
             <a href="/member/login" class="btn btn-ghost fa-solid fa-cloud" style="color: #ff8ab9;">Login</a>
+        </div>
+    </div>
+    <div th:if="${@rq.login} != null" class="flex-none gap-2">
+        <div tabindex="0" role="button">
+            <a href="/member/logout" class="btn btn-ghost fa-solid fa-cloud" style="color: #ff8ab9;">Logout</a>
         </div>
     </div>
 </div>

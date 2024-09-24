@@ -22,6 +22,8 @@ public class MonologueController {
 
     @GetMapping("/play")
     String createMonologue() {
+        if (!rq.isLogin())
+            return rq.redirect("/member/login", "You have to login first");
         return "monologue/play";
     }
 
@@ -37,6 +39,9 @@ public class MonologueController {
 
     @GetMapping("/mine")
     String showMyMonologues(Model model) {
+        if (!rq.isLogin())
+            return rq.redirect("/member/login", "You have to login first");
+
         List<Monologue> monologues = monologueService.findMyMonologues();
         model.addAttribute("myMonologues", monologues);
         return "monologue/mine";

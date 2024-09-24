@@ -82,8 +82,8 @@ public class MemberController {
 
     @GetMapping("/logout")
     String logoutMember() {
-        rq.logout();
-        return "redirect:/";
+        rq.removeSessionAttr("loginMemberId");
+        return rq.redirect("/", "Done, have a good one!");
     }
 
     @GetMapping("/drop/{id}")

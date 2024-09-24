@@ -30,7 +30,7 @@ public class Rq {
         return "redirect:"+path+"?msg="+msg;
     }
 
-    private long getMemberId() {
+    private Long getMemberId() {
         return Optional
                 .ofNullable(req.getSession().getAttribute("loginMemberId"))
                 .map(id -> (long) id)
@@ -38,7 +38,7 @@ public class Rq {
     }
 
     public boolean isLogin() {
-        return getMemberId() > 0;
+        return getMemberId() > 0L;
     }
 
     public Member getMember() {
@@ -50,8 +50,11 @@ public class Rq {
         return member;
     }
 
-    public void logout() {
-        req.getSession().setAttribute("loginMemberId", 0L);
-        member = null;
+    public void setSessionAttr(String name, long value) {
+        req.getSession().setAttribute(name, value);
+    }
+
+    public void removeSessionAttr(String name) {
+        req.getSession().removeAttribute(name);
     }
 }

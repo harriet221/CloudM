@@ -11,10 +11,7 @@ import java.util.Objects;
 @Repository
 @RequiredArgsConstructor
 public class MemberRepository {
-    private final List<Member> memberList = new ArrayList<>() {{
-        add(new Member(1L, "user1", "1234"));
-        add(new Member(2L, "user2", "1234"));
-    }};
+    private final List<Member> memberList = new ArrayList<>();
 
     public Member save(Member member) {
         if(member.getId() == null) {

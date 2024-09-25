@@ -32,7 +32,7 @@ public class MonologueController {
             @RequestParam("body")
             @NotBlank(message = "작성 필수") String body) {
 
-        Monologue monologue = monologueService.create(0L, body);
+        Monologue monologue = monologueService.create(0L, body, rq.getMember());
 
         return rq.redirect("/monologue/mine", "200 - no. %d Monologue is created".formatted(monologue.getId()));
     }

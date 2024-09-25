@@ -1,5 +1,6 @@
 package com.ysj.cloudm.domain.monologue.service;
 
+import com.ysj.cloudm.domain.member.entity.Member;
 import com.ysj.cloudm.domain.monologue.entity.Monologue;
 import com.ysj.cloudm.domain.monologue.repository.MonologueRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,8 +13,8 @@ import java.util.List;
 public class MonologueService {
     private final MonologueRepository monologueRepository;
 
-    public Monologue create(Long questionId, String body) {
-        Monologue monologue = new Monologue(questionId, body);
+    public Monologue create(Long questionId, String body, Member author) {
+        Monologue monologue = new Monologue(questionId, body, author);
         monologue = monologueRepository.save(monologue);
         return monologue;
     }

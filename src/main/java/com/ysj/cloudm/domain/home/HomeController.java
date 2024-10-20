@@ -23,4 +23,9 @@ public class HomeController {
     String showAbout() {
         return "Here's Community";
     }
+
+    @GetMapping("/admin/*")
+    String showAdmin() {
+        return "admin/main";
+    }
 }

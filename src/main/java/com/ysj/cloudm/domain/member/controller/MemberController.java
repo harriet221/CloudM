@@ -77,6 +77,9 @@ public class MemberController {
         HttpSession session = request.getSession();
         session.setAttribute("loginMemberId", member.getId());
 
+        rq.setSessionAttr("loginMemberId", member.getId());
+        rq.setSessionAttr("authorities", member.getAuthorities());
+
         return rq.redirect("/", "Welcome, %s!".formatted(member.getUsername()));
     }
 

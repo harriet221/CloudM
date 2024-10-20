@@ -15,6 +15,7 @@ public class NotProd {
     public ApplicationRunner initNotProd(MemberService memberService,
                                          MonologueService monologueService) {
         return args -> {
+            Member admin = memberService.create("admin", "1234");
             Member user1 = memberService.create("user1", "1234");
             Member user2 = memberService.create("user2", "1234");
 

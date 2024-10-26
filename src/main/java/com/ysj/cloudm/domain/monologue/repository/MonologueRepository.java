@@ -1,5 +1,6 @@
 package com.ysj.cloudm.domain.monologue.repository;
 
+import com.ysj.cloudm.domain.member.entity.Member;
 import com.ysj.cloudm.domain.monologue.entity.Monologue;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -22,8 +23,14 @@ public class MonologueRepository {
         return monologue;
     }
 
-    public List<Monologue> findMyMonologues() {
-        return monologues;
+    public List<Monologue> findMyMonologues(Member member) {
+        List<Monologue> myMonologues = new ArrayList<>();
+        for(Monologue monologue : monologues) {
+            if(monologue.getAuthor().equals(member)) {
+                myMonologues.add(monologue);
+            }
+        }
+        return myMonologues;
     }
 
     public Monologue findById(Long id) {

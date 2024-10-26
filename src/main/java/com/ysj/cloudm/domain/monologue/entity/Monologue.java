@@ -1,16 +1,15 @@
 package com.ysj.cloudm.domain.monologue.entity;
 
 import com.ysj.cloudm.domain.member.entity.Member;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode
 public class Monologue {
+    @EqualsAndHashCode.Include
     private Long id;
     private Long questionId;
     private String body;

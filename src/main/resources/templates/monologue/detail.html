@@ -5,7 +5,7 @@
     <h3 class="flex justify-center">Content</h3>
     <div class="flex justify-center" th:text="|: ${monologue.body}|"></div>
     <br>
-    <div class="flex justify-center" >
+    <div th:if="${@monologueService.isAuthor(@rq.getMember(), monologue)}" class="flex justify-center" >
         <button class="btn btn-outline btn-warning" onclick="my_modal_3.showModal()">DELETE</button>
     </div>
 

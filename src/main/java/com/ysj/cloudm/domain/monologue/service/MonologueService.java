@@ -19,8 +19,8 @@ public class MonologueService {
         return monologue;
     }
 
-    public List<Monologue> findMyMonologues() {
-        return monologueRepository.findMyMonologues();
+    public List<Monologue> findMyMonologues(Member member) {
+        return monologueRepository.findMyMonologues(member);
     }
 
     public Monologue findById(Long id) {
@@ -29,5 +29,9 @@ public class MonologueService {
 
     public void delete(Long id) {
         monologueRepository.delete(id);
+    }
+
+    public boolean isAuthor(Member member, Monologue monologue) {
+        return member.equals(monologue.getAuthor());
     }
 }

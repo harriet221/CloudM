@@ -42,10 +42,12 @@ public class MonologueController {
         if (!rq.isLogin())
             return rq.redirect("/member/login", "You have to login first");
 
-        List<Monologue> monologues = monologueService.findMyMonologues();
+        List<Monologue> monologues = monologueService.findMyMonologues(rq.getMember());
         model.addAttribute("myMonologues", monologues);
         return "monologue/mine";
     }
+
+    // TODO: 특정 질문에 대한 모든 공개된 모놀로그 모아 볼 수 있는 페이지 + publish 기능 추가?
 
     @GetMapping("/{id}")
     String showMonologue(Model model, @PathVariable("id") Long id) {
@@ -62,6 +64,10 @@ public class MonologueController {
         Monologue monologue = monologueService.findById(id);
         if(monologue == null) {
             return rq.redirect("/monologue/mine", "no. %d Monologue does not exist".formatted(id));
+        }
+
+        if(!monologueService.isAuthor(rq.getMember(), monologue)) {
+            throw new RuntimeException("삭제 권한 없음");
         }
         monologueService.delete(id);
 

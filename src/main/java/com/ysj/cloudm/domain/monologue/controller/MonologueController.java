@@ -66,7 +66,7 @@ public class MonologueController {
             return rq.redirect("/monologue/mine", "no. %d Monologue does not exist".formatted(id));
         }
 
-        if(!monologueService.isAuthor(rq.getMember(), monologue)) {
+        if(!monologueService.isAuthor(rq.getMember(), monologue) && !rq.isAdmin()) {
             throw new RuntimeException("삭제 권한 없음");
         }
         monologueService.delete(id);

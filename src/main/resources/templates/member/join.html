@@ -4,6 +4,7 @@
     <div class="flex flex-col gap-5 justify-center">
         <form method="post" onsubmit="submitJoinForm(this); return false;"
               class="flex flex-col gap-5 justify-center">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
             <input type="text" name="username" id="input-username" placeholder="username">
             <input type="password" name="password" id="input-password" placeholder="password">
             <input type="password" name="passwordConfirm" id="confirm-password" placeholder="password to confirm">

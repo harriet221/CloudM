@@ -1,9 +1,8 @@
 <html layout:decorate="~{global/layout}" lang="en">
 
 <div layout:fragment="content" class="flex justify-center">
-    <form method="post" onsubmit="submitWriteForm(this); return false;"
+    <form th:action method="post" onsubmit="submitWriteForm(this); return false;"
           class="flex flex-col gap-5 justify-center">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
         <p>이것은 임의의 질문</p>
 
         <textarea type="text" name="body" id="input-body" placeholder="Write down your answer"

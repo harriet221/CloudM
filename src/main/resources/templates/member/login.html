@@ -2,9 +2,8 @@
 
 <div layout:fragment="content" class="flex justify-center">
     <div class="flex flex-col gap-5 justify-center">
-        <form method="post" onsubmit="submitLoginForm(this); return false;"
+        <form th:action method="post" onsubmit="submitLoginForm(this); return false;"
               class="flex flex-col gap-5 justify-center">
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
             <input type="text" name="username" id="input-username" placeholder="username">
             <input type="password" name="password" id="input-password" placeholder="password">
 

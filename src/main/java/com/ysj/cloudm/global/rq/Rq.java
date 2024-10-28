@@ -2,27 +2,38 @@ package com.ysj.cloudm.global.rq;
 
 import com.ysj.cloudm.domain.member.entity.Member;
 import com.ysj.cloudm.domain.member.service.MemberService;
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
-
-import java.util.Optional;
 
 @RequestScope
 @Component
 @Getter
+@RequiredArgsConstructor
 public class Rq {
     private final HttpServletRequest req;
     private final HttpServletResponse resp;
     private final MemberService memberService;
-    private Member member; // cache
+    private Member member;
+    private User user;
 
-    public Rq(HttpServletRequest req, HttpServletResponse resp, MemberService memberService) {
-        this.req = req;
-        this.resp = resp;
-        this.memberService = memberService;
+    @PostConstruct
+    public void init() {
+        // 세션에서 현재 로그인 한 member의 인증 정보 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if(authentication.getPrincipal() instanceof User) {
+            this.user = (User) authentication.getPrincipal();
+        } else {
+            this.user = null;
+        }
     }
 
     public String redirect(String path, String msg) {
@@ -30,15 +41,8 @@ public class Rq {
         return "redirect:"+path+"?msg="+msg;
     }
 
-    private Long getMemberId() {
-        return Optional
-                .ofNullable(req.getSession().getAttribute("loginMemberId"))
-                .map(id -> (long) id)
-                .orElse(0L);
-    }
-
     public boolean isLogin() {
-        return getMemberId() > 0L;
+        return user != null;
     }
 
     public Member getMember() {
@@ -46,7 +50,7 @@ public class Rq {
             return null;
         }
         if (member == null)
-            member = memberService.findById(getMemberId());
+            member = memberService.findByUsername(user.getUsername());
         return member;
     }
 
@@ -63,6 +67,8 @@ public class Rq {
     }
 
     public boolean isAdmin() {
-        return getMember().isAdmin();
+        return user.getAuthorities()
+                .stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
     }
 }

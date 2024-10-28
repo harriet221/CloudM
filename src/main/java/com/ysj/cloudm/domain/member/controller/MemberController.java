@@ -3,8 +3,6 @@ package com.ysj.cloudm.domain.member.controller;
 import com.ysj.cloudm.domain.member.entity.Member;
 import com.ysj.cloudm.domain.member.service.MemberService;
 import com.ysj.cloudm.global.rq.Rq;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -53,34 +51,6 @@ public class MemberController {
     @GetMapping("/login")
     String loginMember() {
         return "member/login";
-    }
-
-    @Data
-    public static class LoginForm {
-        @NotBlank
-        private String username;
-        @NotBlank
-        private String password;
-    }
-
-    @PostMapping("/login")
-    String loginMember(@Valid LoginForm loginForm, HttpServletRequest request) {
-
-        Member member = memberService.findByUsername(loginForm.username);
-
-        if(member == null)
-            return rq.redirect("/member/login", "Join us first!");
-
-        if(!member.getPassword().equals(loginForm.password))
-            return rq.redirect("/member/login", "Wrong password!");
-
-        HttpSession session = request.getSession();
-        session.setAttribute("loginMemberId", member.getId());
-
-        rq.setSessionAttr("loginMemberId", member.getId());
-        rq.setSessionAttr("authorities", member.getAuthorities());
-
-        return rq.redirect("/", "Welcome, %s!".formatted(member.getUsername()));
     }
 
     @GetMapping("/logout")

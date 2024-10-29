@@ -15,6 +15,9 @@
 
     <link rel="stylesheet" href="/global.css">
     <script src="/global.js"></script>
+
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
 <body>
 
@@ -36,7 +39,7 @@
     </div>
     <div th:if="${@rq.login}" class="flex-none gap-2">
         <div tabindex="0" role="button">
-            <a href="/member/logout" class="btn btn-ghost fa-solid fa-cloud" style="color: #ff8ab9;">Logout</a>
+            <a href="/member/logout" th:method="POST" class="btn btn-ghost fa-solid fa-cloud" style="color: #ff8ab9;">Logout</a>
         </div>
     </div>
 

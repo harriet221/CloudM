@@ -53,12 +53,6 @@ public class MemberController {
         return "member/login";
     }
 
-    @GetMapping("/logout")
-    String logoutMember() {
-        rq.removeSessionAttr("loginMemberId");
-        return rq.redirect("/", "Done, have a good one!");
-    }
-
     @GetMapping("/drop/{id}")
     String dropMember(@PathVariable("id") Long id) {
         Member member = memberService.findById(id);

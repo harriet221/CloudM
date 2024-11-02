@@ -5,6 +5,7 @@ import com.ysj.cloudm.domain.monologue.service.MonologueService;
 import com.ysj.cloudm.global.rq.Rq;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
@@ -27,6 +28,7 @@ public class MonologueController {
         return "monologue/play";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/play")
     String createMonologue(
             @RequestParam("body")
@@ -49,6 +51,7 @@ public class MonologueController {
 
     // TODO: 특정 질문에 대한 모든 공개된 모놀로그 모아 볼 수 있는 페이지 + publish 기능 추가?
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}")
     String showMonologue(Model model, @PathVariable("id") Long id) {
         Monologue monologue = monologueService.findById(id);
@@ -59,6 +62,7 @@ public class MonologueController {
         return "monologue/detail";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/delete/{id}")
     String deleteMonologue(@PathVariable("id") Long id) {
         Monologue monologue = monologueService.findById(id);

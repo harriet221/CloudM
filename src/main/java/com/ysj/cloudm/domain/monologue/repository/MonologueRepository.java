@@ -13,10 +13,12 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class MonologueRepository {
     private final List<Monologue> monologues = new ArrayList<>();
+    private Long lastIdx = 0L;
 
     public Monologue save(Monologue monologue) {
         if(monologue.getId() == null) {
-            monologue.setId(monologues.size() + 1L);
+            lastIdx++;
+            monologue.setId(lastIdx);
         }
         monologues.add(monologue);
 

@@ -8,6 +8,6 @@ spring:
       name: cloudM
       password: 123456
   mvc:
-    hiddenmethod:
+    hidden-method:
       filter:
         enabled: true

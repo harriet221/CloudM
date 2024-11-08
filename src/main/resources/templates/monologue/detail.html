@@ -30,7 +30,7 @@
             </h3>
             <p class="flex justify-center py-4">There's no backup for this.</p>
             <div class="modal-action">
-                <a th:href="|/monologue/delete/${monologue.id}|" class="btn btn-outline btn-warning">Yes, delete it please.</a>
+                <a th:method="DELETE" th:href="|/monologue/delete/${monologue.id}|" class="btn btn-outline btn-warning">Yes, delete it please.</a>
             </div>
         </div>
         <form method="dialog" class="modal-backdrop">

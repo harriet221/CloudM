@@ -63,7 +63,7 @@ public class MonologueController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     String deleteMonologue(@PathVariable("id") Long id) {
         Monologue monologue = monologueService.findById(id);
         if(monologue == null) {

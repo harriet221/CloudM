@@ -43,9 +43,8 @@ public class MemberController {
     @PostMapping("/join")
     String joinMember(@Valid JoinForm joinForm) {
 
-        // TODO: 닉네임 중복 체크 하고도 패스워드는 폼에 남아있도록 or 중복 체크 버튼 별도
         if(memberService.findByUsername(joinForm.username) != null)
-            return rq.redirect("/member/join", "Username already exist!");
+            return rq.historyBack("Username already exist!");
 
         if(!joinForm.password.equals(joinForm.passwordConfirm))
             return rq.redirect("/member/join", "Password doesn't match!");

@@ -41,6 +41,11 @@ public class Rq {
         return "redirect:"+path+"?msg="+msg;
     }
 
+    public String historyBack(String msg) {
+        req.setAttribute("msg", msg);
+        return "global/js";
+    }
+
     public boolean isLogin() {
         return user != null;
     }

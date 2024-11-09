@@ -1,5 +1,5 @@
-<script>
-    const msg = '해당 username은 이미 사용중입니다.';
-    if (msg) alert(msg);
+<script th:inline="javascript">
+    const msg = /*[[${msg}]]*/ null;
+    sessionStorage.setItem('showModal', 'true');
     history.back();
 </script>

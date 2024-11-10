@@ -3,17 +3,16 @@ package com.ysj.cloudm.domain.member.controller;
 import com.ysj.cloudm.domain.member.entity.Member;
 import com.ysj.cloudm.domain.member.service.MemberService;
 import com.ysj.cloudm.global.rq.Rq;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -69,6 +68,12 @@ public class MemberController {
         }
         memberService.delete(id);
         return rq.redirect("/", "Good Bye");
+    }
+
+    @GetMapping("/csrf-token")
+    @ResponseBody
+    public CsrfToken getCsrfToken(HttpServletRequest request) {
+        return (CsrfToken) request.getAttribute("_csrf");
     }
 }
 

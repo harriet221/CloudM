@@ -3,6 +3,7 @@ package com.ysj.cloudm.domain.member.controller;
 import com.ysj.cloudm.domain.member.entity.Member;
 import com.ysj.cloudm.domain.member.service.MemberService;
 import com.ysj.cloudm.global.rq.Rq;
+import com.ysj.cloudm.global.rs.RsData;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -41,16 +42,15 @@ public class MemberController {
     @PreAuthorize("isAnonymous()")
     @PostMapping("/join")
     String joinMember(@Valid JoinForm joinForm) {
-
-        if(memberService.findByUsername(joinForm.username) != null)
-            return rq.historyBack("Username already exist!");
-
+        // TODO: 프론트로 뺄 로직
         if(!joinForm.password.equals(joinForm.passwordConfirm))
             return rq.redirect("/member/join", "Password doesn't match!");
 
-        Member member = memberService.create(joinForm.username, joinForm.password);
-
-        return rq.redirect("/member/login", "Welcome! Login and have a good time!");
+        RsData<Member> joinMemberRs = memberService.create(joinForm.username, joinForm.password);
+        if(!joinMemberRs.isSuccess()) {
+            return rq.historyBack(joinMemberRs.getMsg());
+        }
+        return rq.redirect("/member/login", joinMemberRs.getMsg());
     }
 
     @PreAuthorize("isAnonymous()")

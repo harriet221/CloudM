@@ -15,7 +15,7 @@ public class MemberService {
 
     public RsData<Member> create(String username, String password) {
         if(findByUsername(username) != null)
-            return new RsData<>(400, "Username already exist!");
+            return new RsData<>(400, "Sorry, username already exist!");
 
         password = passwordEncoder.encode(password);
         Member member = new Member(username, password);

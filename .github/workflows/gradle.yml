@@ -7,7 +7,6 @@
 
 name: Java CI with Gradle
 
-# master 브랜치에 push, PR 이벤트 발생시 동작.
 on:
   push:
     branches: [ "main" ]
@@ -15,33 +14,35 @@ on:
     branches: [ "main" ]
 
 jobs:
-  deploy: 
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-    
-    # Spring Boot 어플리케이션 Build (1)
-    - name: Spring Boot Build
-      run: ./gradlew clean build --exclude-task test
-    
-    # Docker 이미지 Build (2)
-    - name: docker image build
-      run: docker build -t harriet99/cloudm-aws-test-ci .
-    
-    # DockerHub Login (3)
-    - name: docker login 
-      uses: docker/login-action@v2
-      with: 
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    # Docker Hub push (4)
-    - name: docker Hub push
-      run: docker push harriet99/cloudm-aws-test-ci
+      # gradlew 실행 권한 부여
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
 
-    # Generates and submits a dependency graph, enabling Dependabot Alerts for all project dependencies.
-    # See: https://github.com/gradle/actions/blob/main/dependency-submission/README.md
-    - name: Generate and submit dependency graph
-      uses: gradle/actions/dependency-submission@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
+      # Spring Boot 어플리케이션 Build (1)
+      - name: Spring Boot Build
+        run: ./gradlew clean build --exclude-task test
+
+      # Docker 이미지 Build (2)
+      - name: docker image build
+        run: docker build -t harriet99/cloudm-aws-test-ci .
+
+      # DockerHub Login (3)
+      - name: docker login
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # Docker Hub push (4)
+      - name: docker Hub push
+        run: docker push harriet99/cloudm-aws-test-ci
+
+      - name: Generate and submit dependency graph
+        uses: gradle/actions/dependency-submission@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0

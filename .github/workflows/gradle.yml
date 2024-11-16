@@ -54,3 +54,5 @@ jobs:
       - name: Deploy to EC2
         run: |
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/ec2_test.pem ubuntu@${{ secrets.EC2_HOST }} 'bash -s' < deploy_script.sh
+        env:
+          DOCKER_CLI_EXPERIMENTAL: enabled
